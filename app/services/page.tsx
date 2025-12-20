@@ -164,36 +164,53 @@ export default function ServicesPage() {
           <div className="absolute bottom-20 right-10 h-80 w-80 bg-primary/10 rounded-full blur-3xl animate-pulse delay-700" />
         </div>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4 rounded-full bg-accent/10 px-4 py-2 text-sm font-semibold text-accent">
+              WHAT WE OFFER
+            </div>
+            <h2 className="text-5xl font-serif font-bold tracking-tight text-foreground mb-6">Our Services</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Comprehensive solutions designed to elevate your business to the next level
+            </p>
+          </div>
+
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="group relative overflow-hidden rounded-2xl border bg-card shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+                className="group relative overflow-hidden rounded-3xl border-2 border-border/50 bg-card shadow-xl transition-all duration-700 hover:shadow-2xl hover:-translate-y-3 hover:border-accent/50"
               >
-                {/* Corner Badge */}
-                <div className="absolute top-4 right-4 z-20 rounded-full bg-accent/90 px-3 py-1 text-xs font-semibold text-accent-foreground backdrop-blur-sm">
+                <div className="absolute top-4 right-4 z-20 rounded-full bg-accent px-4 py-1.5 text-xs font-bold text-accent-foreground backdrop-blur-sm shadow-lg group-hover:scale-110 transition-transform duration-300">
                   {service.badge}
                 </div>
 
-                {/* Background Image with Zoom Effect */}
-                <div className="absolute inset-0 opacity-10 transition-all duration-700 group-hover:opacity-20 group-hover:scale-110">
+                <div className="absolute inset-0 opacity-20 transition-all duration-700 group-hover:opacity-30 group-hover:scale-110">
                   <Image src={service.image || "/placeholder.svg"} alt={service.title} fill className="object-cover" />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/95" />
+                <div className="absolute inset-0 bg-gradient-to-br from-background/98 via-background/95 to-accent/5" />
 
-                <div className="relative p-8">
-                  {/* Enhanced Icon with Glow and Rotation */}
-                  <div className="mb-6 inline-flex rounded-2xl bg-gradient-to-br from-accent/20 to-accent/10 p-5 shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-2xl group-hover:shadow-accent/20">
-                    <service.icon className="h-12 w-12 text-accent transition-transform duration-500 group-hover:scale-110" />
+                <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-accent/5 blur-2xl group-hover:bg-accent/10 transition-all duration-700" />
+                <div className="absolute -left-8 -bottom-8 h-32 w-32 rounded-full bg-primary/5 blur-2xl group-hover:bg-primary/10 transition-all duration-700" />
+
+                <div className="relative p-8 min-h-[320px] flex flex-col">
+                  <div className="mb-6 relative inline-flex w-fit">
+                    <div className="absolute inset-0 rounded-2xl bg-accent/20 blur-xl group-hover:blur-2xl transition-all duration-500" />
+                    <div className="relative rounded-2xl bg-gradient-to-br from-accent/30 via-accent/20 to-accent/10 p-6 shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                      <service.icon className="h-12 w-12 text-accent transition-all duration-500 group-hover:scale-125" />
+                    </div>
                   </div>
 
                   <h3 className="mb-4 text-2xl font-serif font-bold text-card-foreground transition-colors duration-300 group-hover:text-accent">
                     {service.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+                  <p className="text-muted-foreground leading-relaxed flex-grow">{service.description}</p>
 
-                  {/* Decorative Bottom Bar */}
-                  <div className="mt-6 h-1 w-0 bg-gradient-to-r from-accent to-accent/50 transition-all duration-700 group-hover:w-full rounded-full" />
+                  <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-accent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <span>Learn More</span>
+                    <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </div>
+
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
                 </div>
               </div>
             ))}
@@ -272,7 +289,7 @@ export default function ServicesPage() {
                         </div>
 
                         {/* Decorative corner elements */}
-                        <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-accent to-transparent group-hover:w-full transition-all duration-700" />
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
                       </div>
                     </div>
 
@@ -301,54 +318,91 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="bg-primary text-primary-foreground py-20 relative overflow-hidden">
+      <section className="bg-primary text-primary-foreground py-24 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 h-96 w-96 bg-accent rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-20 right-20 h-80 w-80 bg-accent rounded-full blur-3xl animate-pulse delay-700" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-serif font-bold tracking-tight mb-6">Why Choose Ascend?</h2>
-              <p className="text-xl text-primary-foreground/90 mb-8 leading-relaxed">
-                We bring a unique combination of local market expertise and global transaction experience.
-              </p>
-
-              <div className="space-y-4">
-                {[
-                  "Founder-led perspective with real exit experience",
-                  "Harvard-certified Private Equity expertise",
-                  "Deep connections with international investors",
-                  "Chartered Accountant rigorous due diligence",
-                  "Proven track record in Multi-Million USD transactions",
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start gap-3 group">
-                    <div className="mt-1 rounded-full bg-accent/20 p-1 transition-all duration-300 group-hover:bg-accent/30 group-hover:scale-110">
-                      <CheckCircle2 className="h-5 w-5 text-accent" />
-                    </div>
-                    <p className="text-primary-foreground/90 leading-relaxed">{item}</p>
-                  </div>
-                ))}
-              </div>
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4 rounded-full bg-accent/20 px-4 py-2 text-sm font-semibold text-accent">
+              WHY ASCEND
             </div>
+            <h2 className="text-5xl font-serif font-bold tracking-tight mb-6">Your Trusted M&A Partner</h2>
+            <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
+              We bring a unique combination of local market expertise and global transaction experience.
+            </p>
+          </div>
 
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {[
+              {
+                icon: Award,
+                title: "Founder-Led Perspective",
+                description: "Real exit experience with a Multi-Million USD acquisition by a US-based tech firm",
+              },
+              {
+                icon: Target,
+                title: "Harvard-Certified Expertise",
+                description: "Certificate in Private Equity and Venture Capital (PEVC) from Harvard Business School",
+              },
+              {
+                icon: Users,
+                title: "Global Investor Network",
+                description:
+                  "Deep connections with international investors seeking opportunities in the Himalayan region",
+              },
+              {
+                icon: CheckCircle2,
+                title: "CA Rigorous Standards",
+                description: "Chartered Accountant (ICAI) led due diligence ensuring thorough financial scrutiny",
+              },
+              {
+                icon: TrendingUp,
+                title: "Proven Track Record",
+                description: "Successfully raised significant capital for multiple companies across diverse industries",
+              },
+              {
+                icon: Handshake,
+                title: "Skin in the Game",
+                description: "Having sat on both sides of the table as founder and advisor, we understand your journey",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="group relative overflow-hidden rounded-2xl border-2 border-primary-foreground/10 bg-primary-foreground/5 p-8 backdrop-blur-sm transition-all duration-500 hover:bg-primary-foreground/10 hover:border-accent/50 hover:-translate-y-2 hover:shadow-2xl"
+              >
+                <div className="absolute top-0 right-0 h-32 w-32 bg-accent/10 rounded-full blur-2xl group-hover:bg-accent/20 transition-colors duration-500" />
+
+                <div className="relative">
+                  <div className="mb-6 inline-flex rounded-xl bg-accent/20 p-4 transition-all duration-300 group-hover:scale-110 group-hover:bg-accent/30">
+                    <item.icon className="h-8 w-8 text-accent" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-primary-foreground/80 leading-relaxed">{item.description}</p>
+                </div>
+
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
+              </div>
+            ))}
+          </div>
+
+          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-accent via-accent to-accent/80 p-12 text-center shadow-2xl">
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-0 left-0 h-full w-full bg-[url('/business-handshake-professional.jpg')] bg-cover bg-center" />
+            </div>
             <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
-                <Image
-                  src="/business-executive-portrait.jpg"
-                  alt="Professional business consultation"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
+              <div className="inline-block mb-4 rounded-full bg-accent-foreground/10 px-4 py-2 text-sm font-semibold text-accent-foreground">
+                SUCCESS STORY
               </div>
-
-              {/* Floating card */}
-              <div className="absolute -bottom-6 -left-6 bg-accent text-accent-foreground rounded-xl p-6 shadow-2xl max-w-xs">
-                <div className="text-3xl font-bold mb-1">$2.4M+</div>
-                <div className="text-sm">Successfully executed exit to US tech firm</div>
-              </div>
+              <div className="text-6xl font-bold text-accent-foreground mb-4">$2.4M+ USD</div>
+              <p className="text-xl text-accent-foreground/90 max-w-2xl mx-auto leading-relaxed">
+                Successfully executed exit to US-based technology firm. Led the entire transaction from initial
+                negotiations to final closing.
+              </p>
             </div>
           </div>
         </div>
