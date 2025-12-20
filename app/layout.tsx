@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { ScrollToTop } from "@/components/scroll-to-top"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -214,6 +215,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
+        <ScrollToTop />
         <Header />
         <main>{children}</main>
         <Footer />
