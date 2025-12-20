@@ -1,0 +1,148 @@
+import Image from "next/image"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Recent Transactions - Success Stories & M&A Deals",
+  description:
+    "Explore Ascend LLC's successful M&A transactions including the $2.4M Adex International acquisition. Proven track record in Nepal business exits and fundraising.",
+  keywords: [
+    "Nepal M&A Transactions",
+    "Business Exit Success Stories Nepal",
+    "Adex International Acquisition",
+    "Nepal Startup Funding",
+    "Business Sale Nepal",
+    "M&A Deal Nepal",
+  ],
+  openGraph: {
+    title: "Recent Transactions - Success Stories | Ascend LLC",
+    description:
+      "Proven track record of successful M&A transactions in Nepal, including the $2.4M Adex International exit.",
+    url: "https://ascendllc.com/transactions",
+    type: "website",
+  },
+}
+
+export default function TransactionsPage() {
+  const transactions = [
+    {
+      title: "Adex International",
+      subtitle: "Technology & Digital Services Company",
+      location: "Kathmandu, Nepal",
+      acquiredBy: "TekBay Digital (USA)",
+      acquirerLocation: "United States",
+      dealValue: "$2.4M",
+      image: "/technology-company-office-modern.jpg",
+    },
+    {
+      title: "High-Growth Tech Startup",
+      subtitle: "Series A Funding Round",
+      location: "Kathmandu, Nepal",
+      acquiredBy: "International Venture Capital",
+      acquirerLocation: "Global Investors",
+      dealValue: "Undisclosed",
+      image: "/startup-office-team-collaboration.jpg",
+    },
+    {
+      title: "Manufacturing Company",
+      subtitle: "Strategic Merger & Consolidation",
+      location: "Lalitpur, Nepal",
+      acquiredBy: "Industry Strategic Partner",
+      acquirerLocation: "Nepal",
+      dealValue: "Undisclosed",
+      image: "/manufacturing-facility-production-line.jpg",
+    },
+    {
+      title: "E-Commerce Platform",
+      subtitle: "Growth Capital Raise",
+      location: "Kathmandu, Nepal",
+      acquiredBy: "Private Equity Firm",
+      acquirerLocation: "Singapore",
+      dealValue: "Undisclosed",
+      image: "/ecommerce-online-shopping-platform.jpg",
+    },
+    {
+      title: "Hospitality & Tourism Business",
+      subtitle: "Business Sale & Exit",
+      location: "Pokhara, Nepal",
+      acquiredBy: "Private Buyer",
+      acquirerLocation: "Nepal",
+      dealValue: "Undisclosed",
+      image: "/luxury-hotel-resort-hospitality.jpg",
+    },
+    {
+      title: "Financial Services Firm",
+      subtitle: "Strategic Partnership",
+      location: "Kathmandu, Nepal",
+      acquiredBy: "Regional Financial Group",
+      acquirerLocation: "South Asia",
+      dealValue: "Undisclosed",
+      image: "/financial-services-banking-professional.jpg",
+    },
+  ]
+
+  return (
+    <div className="min-h-screen bg-background">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-primary/90 py-24 text-primary-foreground">
+        <div className="absolute inset-0 bg-[url('/business-handshake-professional.jpg')] bg-cover bg-center opacity-5" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h1 className="text-center text-5xl font-serif font-bold tracking-tight sm:text-6xl text-balance">
+            Recent Transactions
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-center text-xl text-primary-foreground/80">
+            Success stories showcasing our expertise in M&A advisory and business transactions
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-background py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {transactions.map((transaction, index) => (
+              <div
+                key={index}
+                className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-lg transition-all hover:shadow-2xl hover:-translate-y-1"
+              >
+                {/* Image with overlay effect */}
+                <div className="relative h-56 w-full overflow-hidden bg-muted">
+                  <Image
+                    src={transaction.image || "/placeholder.svg"}
+                    alt={transaction.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                </div>
+
+                {/* Content with refined typography */}
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="mb-2 text-center text-xl font-serif font-semibold text-primary">
+                    {transaction.title}
+                  </h3>
+                  <p className="mb-1 text-center text-sm text-muted-foreground">{transaction.subtitle}</p>
+                  <p className="mb-6 text-center text-sm text-muted-foreground">{transaction.location}</p>
+
+                  <div className="mb-4 border-t border-border pt-4">
+                    <p className="mb-3 text-center text-xs uppercase tracking-wider text-muted-foreground/70">
+                      was acquired by
+                    </p>
+                    <div className="space-y-1">
+                      <p className="text-center text-base font-semibold text-primary">{transaction.acquiredBy}</p>
+                      <p className="text-center text-sm text-muted-foreground">{transaction.acquirerLocation}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Premium footer with accent color */}
+                <div className="bg-primary px-6 py-4 text-center">
+                  <p className="text-sm font-medium text-primary-foreground">
+                    Ascend acted as the exclusive sell-side advisor
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
