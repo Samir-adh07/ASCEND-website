@@ -193,7 +193,7 @@ export default function ServicesPage() {
                   <p className="text-muted-foreground leading-relaxed">{service.description}</p>
 
                   {/* Decorative Bottom Bar */}
-                  <div className="mt-6 h-1 w-0 bg-gradient-to-r from-accent to-accent/50 transition-all duration-500 group-hover:w-full rounded-full" />
+                  <div className="mt-6 h-1 w-0 bg-gradient-to-r from-accent to-accent/50 transition-all duration-700 group-hover:w-full rounded-full" />
                 </div>
               </div>
             ))}
@@ -201,44 +201,102 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-br from-primary/5 to-background py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-serif font-bold tracking-tight text-foreground sm:text-5xl mb-4">
-              Our Process
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              A proven methodology that ensures successful transactions from start to finish
+      <section className="bg-background py-24 relative overflow-hidden">
+        {/* Animated background gradients */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-40 -left-20 h-[600px] w-[600px] bg-accent/30 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-20 -right-20 h-[500px] w-[500px] bg-primary/30 rounded-full blur-[120px] animate-pulse delay-1000" />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <div className="inline-block mb-4 rounded-full bg-accent/10 px-4 py-2 text-sm font-semibold text-accent">
+              HOW WE WORK
+            </div>
+            <h2 className="text-5xl font-serif font-bold tracking-tight text-foreground mb-6">Our Process</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              A proven four-step methodology that ensures successful transactions from initial consultation to post-deal
+              support
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {processSteps.map((step, index) => (
-              <div key={index} className="relative group">
-                <div className="relative overflow-hidden rounded-2xl border bg-card p-8 shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                  {/* Decorative number */}
-                  <div className="absolute -top-4 -right-4 text-8xl font-bold text-accent/5 group-hover:text-accent/10 transition-colors duration-300">
-                    {step.number}
-                  </div>
+          {/* Timeline Container */}
+          <div className="relative">
+            {/* Center connecting line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent to-accent/20 transform -translate-x-1/2 hidden lg:block" />
 
-                  <div className="relative">
-                    <div className="mb-4 inline-flex items-center justify-center rounded-full bg-accent/10 h-16 w-16 text-2xl font-bold text-accent group-hover:scale-110 transition-transform duration-300">
-                      {step.number}
+            <div className="space-y-16">
+              {processSteps.map((step, index) => (
+                <div key={index} className="relative">
+                  {/* Central pulse indicator */}
+                  <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden lg:block">
+                    <div className="relative">
+                      <div className="h-6 w-6 rounded-full bg-accent animate-ping absolute opacity-20" />
+                      <div className="h-6 w-6 rounded-full bg-accent border-4 border-background shadow-lg relative z-10" />
                     </div>
-                    <h3 className="text-xl font-serif font-bold text-card-foreground mb-3">{step.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{step.description}</p>
                   </div>
 
-                  {/* Connection line */}
-                  {index < processSteps.length - 1 && (
-                    <div className="hidden lg:block absolute top-1/2 -right-8 w-8 h-0.5 bg-gradient-to-r from-accent/40 to-transparent" />
-                  )}
+                  {/* Card - alternating left/right on desktop */}
+                  <div
+                    className={`grid lg:grid-cols-2 gap-8 items-center ${index % 2 === 0 ? "" : "lg:flex-row-reverse"}`}
+                  >
+                    {/* Content Card */}
+                    <div className={`${index % 2 === 0 ? "lg:text-right lg:pr-16" : "lg:col-start-2 lg:pl-16"} group`}>
+                      <div className="relative overflow-hidden rounded-2xl border-2 border-accent/20 bg-card p-8 shadow-xl transition-all duration-500 hover:shadow-2xl hover:border-accent/40 hover:-translate-y-2">
+                        {/* Glowing corner accent */}
+                        <div className="absolute top-0 right-0 h-32 w-32 bg-accent/5 blur-2xl group-hover:bg-accent/10 transition-colors duration-500" />
 
-                  {/* Bottom accent bar */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent/0 via-accent to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="relative">
+                          {/* Step Number Badge */}
+                          <div
+                            className={`inline-flex items-center gap-3 mb-4 ${index % 2 === 0 ? "lg:flex-row-reverse" : ""}`}
+                          >
+                            <div className="flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-accent to-accent/70 text-2xl font-bold text-accent-foreground shadow-lg group-hover:scale-110 transition-transform duration-300">
+                              {step.number}
+                            </div>
+                            <div className="h-1 w-12 bg-gradient-to-r from-accent to-transparent" />
+                          </div>
+
+                          <h3 className="text-3xl font-serif font-bold text-card-foreground mb-4 group-hover:text-accent transition-colors duration-300">
+                            {step.title}
+                          </h3>
+                          <p className="text-lg text-muted-foreground leading-relaxed">{step.description}</p>
+
+                          {/* Icon indicator */}
+                          <div className={`mt-6 flex ${index % 2 === 0 ? "lg:justify-end" : "lg:justify-start"}`}>
+                            <div className="inline-flex items-center gap-2 text-sm font-medium text-accent">
+                              <CheckCircle2 className="h-5 w-5" />
+                              <span>Step Complete</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Decorative corner elements */}
+                        <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-accent to-transparent group-hover:w-full transition-all duration-700" />
+                      </div>
+                    </div>
+
+                    {/* Spacer for alternating layout */}
+                    <div className={`hidden lg:block ${index % 2 === 0 ? "" : "lg:col-start-1"}`} />
+                  </div>
                 </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="mt-20 text-center">
+            <div className="inline-flex items-center gap-4 rounded-full border-2 border-accent/20 bg-card p-2 pr-6 shadow-lg">
+              <div className="flex items-center justify-center h-12 w-12 rounded-full bg-accent text-accent-foreground font-bold">
+                ✓
               </div>
-            ))}
+              <p className="text-muted-foreground font-medium">
+                Ready to start your journey?{" "}
+                <Link href="/contact" className="text-accent hover:underline font-semibold">
+                  Let's talk
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       </section>
