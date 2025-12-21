@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -8,17 +8,6 @@ import { Menu, X } from "lucide-react"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
-    }
-    return () => {
-      document.body.style.overflow = "unset"
-    }
-  }, [mobileMenuOpen])
 
   const navItems = [
     { name: "Home", href: "/" },
@@ -46,15 +35,14 @@ export function Header() {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground hover:bg-muted/50 transition-colors"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground hover:bg-muted/50 active:bg-muted transition-colors touch-manipulation"
             onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open main menu"
           >
-            <span className="sr-only">Open main menu</span>
             <Menu className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
 
-        {/* Desktop Navigation */}
         <div className="hidden lg:flex lg:items-center lg:gap-x-10">
           {navItems.map((item) => (
             <Link
@@ -74,56 +62,74 @@ export function Header() {
         </div>
       </nav>
 
-      {mobileMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="lg:hidden fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm"
-            onClick={() => setMobileMenuOpen(false)}
-            aria-hidden="true"
-          />
-
-          {/* Menu Panel */}
-          <div className="lg:hidden fixed inset-y-0 right-0 z-[70] w-full overflow-y-auto bg-background px-6 py-6 sm:max-w-sm border-l shadow-2xl">
+      {/* Mobile menu overlay */}
+      <div className={`fixed inset-0 z-[60] lg:hidden transition-all duration-300 ${
+        mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+      }`}>
+        {/* Backdrop */}
+        <div 
+          className="absolute inset-0 bg-black/20 backdrop-blur-sm" 
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+        
+        {/* Mobile menu panel */}
+        <div className={`absolute inset-x-0 top-0 z-[70] bg-background border-b shadow-lg transform transition-transform duration-300 ease-out ${
+          mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
+        }`}>
+          <div className="px-6 py-4">
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
-                <Image src="/ascend-logo.png" alt="Ascend" width={160} height={40} className="h-9 w-auto" />
+                <Image 
+                  src="/ascend-logo.png" 
+                  alt="Ascend" 
+                  width={160} 
+                  height={40} 
+                  className="h-8 w-auto" 
+                  priority
+                  loading="eager"
+                />
               </Link>
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 text-foreground hover:bg-muted transition-colors"
+                className="-m-2.5 rounded-md p-2.5 text-foreground hover:bg-muted/50 active:bg-muted transition-colors touch-manipulation"
                 onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close menu"
               >
-                <span className="sr-only">Close menu</span>
                 <X className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
-            <div className="mt-8 flow-root">
-              <div className="-my-6 divide-y divide-border">
-                <div className="space-y-2 py-6">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className="block rounded-lg px-4 py-3 text-base font-medium text-foreground hover:bg-muted transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-                <div className="py-6">
-                  <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                    <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
-                      Book a Consultation
-                    </Link>
-                  </Button>
-                </div>
+            <div className={`mt-6 space-y-1 transition-all duration-300 delay-75 ${
+              mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            }`}>
+              {navItems.map((item, index) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`block rounded-lg px-4 py-3 text-base font-medium text-foreground hover:bg-muted active:bg-muted/80 transition-all duration-200 touch-manipulation transform ${
+                    mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+                  }`}
+                  style={{ 
+                    transitionDelay: mobileMenuOpen ? `${100 + index * 50}ms` : '0ms' 
+                  }}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              <div className={`pt-4 transition-all duration-300 delay-300 ${
+                mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+              }`}>
+                <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90 active:bg-accent/80 touch-manipulation transition-all duration-200">
+                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+                    Book a Consultation
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </header>
   )
 }
