@@ -43,8 +43,8 @@ export default function AboutPage() {
             <div className="order-2 lg:order-1">
               <div className="relative overflow-hidden rounded-2xl bg-muted shadow-2xl aspect-[4/5]">
                 <img
-                  src="/business-executive-portrait.jpg"
-                  alt="Saurav Subedi"
+                  src="/saurav-subedi-founder.jpeg"
+                  alt="Saurav Subedi - Founder and Chartered Accountant"
                   className="h-full w-full object-cover"
                 />
               </div>

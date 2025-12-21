@@ -14,6 +14,7 @@ export function Header() {
     { name: "Services", href: "/services" },
     { name: "About the Founder", href: "/about" },
     { name: "Transaction Gallery", href: "/transactions" },
+    { name: "Blogs", href: "/blogs" }, // Updated blog route to /blogs and name to Blogs
     { name: "Contact Us", href: "/contact" },
   ]
 
@@ -63,29 +64,33 @@ export function Header() {
       </nav>
 
       {/* Mobile menu overlay */}
-      <div className={`fixed inset-0 z-[60] lg:hidden transition-all duration-300 ${
-        mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-      }`}>
+      <div
+        className={`fixed inset-0 z-[60] lg:hidden transition-all duration-300 ${
+          mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+      >
         {/* Backdrop */}
-        <div 
-          className="absolute inset-0 bg-black/20 backdrop-blur-sm" 
+        <div
+          className="absolute inset-0 bg-black/20 backdrop-blur-sm"
           onClick={() => setMobileMenuOpen(false)}
           aria-hidden="true"
         />
-        
+
         {/* Mobile menu panel */}
-        <div className={`absolute inset-x-0 top-0 z-[70] bg-background border-b shadow-lg transform transition-transform duration-300 ease-out ${
-          mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
-        }`}>
+        <div
+          className={`absolute inset-x-0 top-0 z-[70] bg-background border-b shadow-lg transform transition-transform duration-300 ease-out ${
+            mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
+          }`}
+        >
           <div className="px-6 py-4">
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
-                <Image 
-                  src="/ascend-logo.png" 
-                  alt="Ascend" 
-                  width={160} 
-                  height={40} 
-                  className="h-8 w-auto" 
+                <Image
+                  src="/ascend-logo.png"
+                  alt="Ascend"
+                  width={160}
+                  height={40}
+                  className="h-8 w-auto"
                   priority
                   loading="eager"
                 />
@@ -99,28 +104,35 @@ export function Header() {
                 <X className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
-            <div className={`mt-6 space-y-1 transition-all duration-300 delay-75 ${
-              mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-            }`}>
+            <div
+              className={`mt-6 space-y-1 transition-all duration-300 delay-75 ${
+                mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
+            >
               {navItems.map((item, index) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   className={`block rounded-lg px-4 py-3 text-base font-medium text-foreground hover:bg-muted active:bg-muted/80 transition-all duration-200 touch-manipulation transform ${
-                    mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+                    mobileMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
                   }`}
-                  style={{ 
-                    transitionDelay: mobileMenuOpen ? `${100 + index * 50}ms` : '0ms' 
+                  style={{
+                    transitionDelay: mobileMenuOpen ? `${100 + index * 50}ms` : "0ms",
                   }}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className={`pt-4 transition-all duration-300 delay-300 ${
-                mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-              }`}>
-                <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90 active:bg-accent/80 touch-manipulation transition-all duration-200">
+              <div
+                className={`pt-4 transition-all duration-300 delay-300 ${
+                  mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                }`}
+              >
+                <Button
+                  asChild
+                  className="w-full bg-accent text-accent-foreground hover:bg-accent/90 active:bg-accent/80 touch-manipulation transition-all duration-200"
+                >
                   <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
                     Book a Consultation
                   </Link>

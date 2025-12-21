@@ -73,7 +73,7 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <Linkedin className="mt-0.5 h-5 w-5 text-accent flex-shrink-0" />
                 <a
-                  href="https://www.linkedin.com/in/saurav-subedi/"
+                  href="https://www.linkedin.com/in/saurav-subedi-2a5785136/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary-foreground/80 hover:text-accent transition-colors"
