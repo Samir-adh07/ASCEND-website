@@ -14,6 +14,7 @@ export function Header() {
     { name: "Services", href: "/services" },
     { name: "About the Founder", href: "/about" },
     { name: "Transaction Gallery", href: "/transactions" },
+    { name: "Blogs", href: "/blogs" },
     { name: "Contact Us", href: "/contact" },
   ]
 
