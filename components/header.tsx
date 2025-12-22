@@ -14,7 +14,6 @@ export function Header() {
     { name: "Services", href: "/services" },
     { name: "About the Founder", href: "/about" },
     { name: "Transaction Gallery", href: "/transactions" },
-    { name: "Blogs", href: "/blogs" }, // Updated blog route to /blogs and name to Blogs
     { name: "Contact Us", href: "/contact" },
   ]
 

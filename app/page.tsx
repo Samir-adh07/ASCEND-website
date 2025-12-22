@@ -325,7 +325,7 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 text-center md:grid-cols-3">
             <div className="group">
-              <div className="mb-3 text-6xl font-bold text-accent">$2.4M</div>
+              <div className="mb-3 text-6xl font-bold text-accent">$10M+</div>
               <div className="text-xl text-primary-foreground/80">Recent Transaction Value</div>
               <div className="mt-2 h-1 w-20 mx-auto bg-accent rounded-full transition-all group-hover:w-32" />
             </div>
