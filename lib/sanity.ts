@@ -8,7 +8,7 @@ export const client = createClient({
   useCdn: true, // Enable CDN for faster queries
   perspective: 'published', // Only fetch published content
 })
-
+// line space
 const builder = imageUrlBuilder(client)
 
 export const urlFor = (source: any) => {
