@@ -1,17 +1,26 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Calendar, Clock } from "lucide-react"
-import { getAllBlogPosts, getBlogPostsByCategory, categories } from "@/lib/blogs-data"
+import { getBlogPosts, SanityBlogPost } from "@/lib/sanity-blog-data"
+import { urlFor } from "@/lib/sanity"
 
-export default function BlogsClient() {
-  const allPosts = getAllBlogPosts()
+const categories = ["Market Insights", "M&A Strategy", "Fundraising", "Valuation", "Nepal Business"]
+
+interface BlogsClientProps {
+  initialPosts: SanityBlogPost[]
+}
+
+export default function BlogsClient({ initialPosts }: BlogsClientProps) {
+  const [posts] = useState<SanityBlogPost[]>(initialPosts)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
-  const filteredPosts = selectedCategory ? getBlogPostsByCategory(selectedCategory) : allPosts
+  const filteredPosts = selectedCategory 
+    ? posts.filter(post => post.category === selectedCategory)
+    : posts
 
   return (
     <div className="min-h-screen">
@@ -64,13 +73,13 @@ export default function BlogsClient() {
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           {filteredPosts.map((post) => (
-            <Link key={post.id} href={`/blogs/${post.slug}`}>
+            <Link key={post._id} href={`/blogs/${post.slug.current}`}>
               <article className="group h-full flex flex-col overflow-hidden rounded-2xl border bg-card shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer">
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden bg-muted">
                   <Image
-                    src={post.image || "/placeholder.svg"}
-                    alt={post.title}
+                    src={post.image?.asset?.url || "/placeholder.svg"}
+                    alt={post.image?.alt || post.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
