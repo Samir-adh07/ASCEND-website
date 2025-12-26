@@ -1,29 +1,22 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Calendar, Clock, Share2 } from "lucide-react"
-import { getBlogPostBySlug, getBlogPosts } from "@/lib/sanity-blog-data"
+import { getBlogPost, getAllBlogPosts } from "@/lib/blogs-data"
 import { notFound } from "next/navigation"
-import PortableTextContent from "@/components/portable-text-content"
 
-interface BlogPostPageProps {
-  params: { slug: string }
-}
-
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const [post, allPosts] = await Promise.all([
-    getBlogPostBySlug(params.slug),
-    getBlogPosts()
-  ])
+export default function BlogPostPage({ params }: { params: { slug: string } }) {
+  const post = getBlogPost(params.slug)
+  const allPosts = getAllBlogPosts()
 
   if (!post) {
     notFound()
   }
 
   // Get related posts (same category, but not current post)
-  const relatedPosts = allPosts
-    .filter((p) => p.category === post.category && p._id !== post._id)
-    .slice(0, 3)
+  const relatedPosts = allPosts.filter((p) => p.category === post.category && p.id !== post.id).slice(0, 3)
 
   return (
     <div className="min-h-screen">
@@ -71,18 +64,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* Featured Image */}
       <div className="relative h-96 w-full overflow-hidden bg-muted">
-        <Image 
-          src={post.image?.asset?.url || "/placeholder.svg"} 
-          alt={post.image?.alt || post.title} 
-          fill 
-          className="object-cover" 
-          priority 
-        />
+        <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="object-cover" priority />
       </div>
 
       {/* Article Content */}
       <section className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
-        <PortableTextContent content={post.content} />
+        <div className="prose prose-lg max-w-none">
+          {post.content.split("\n\n").map((paragraph, index) => (
+            <p key={index} className="mb-6 text-lg text-muted-foreground leading-relaxed whitespace-pre-wrap">
+              {paragraph}
+            </p>
+          ))}
+        </div>
 
         {/* Article Footer */}
         <div className="mt-16 pt-8 border-t border-border/40">
@@ -125,12 +118,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
           <div className="grid gap-8 md:grid-cols-3">
             {relatedPosts.map((relatedPost) => (
-              <Link key={relatedPost._id} href={`/blogs/${relatedPost.slug.current}`}>
+              <Link key={relatedPost.id} href={`/blogs/${relatedPost.slug}`}>
                 <article className="group h-full flex flex-col overflow-hidden rounded-2xl border bg-card shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer">
                   <div className="relative h-48 overflow-hidden bg-muted">
                     <Image
-                      src={relatedPost.image?.asset?.url || "/placeholder.svg"}
-                      alt={relatedPost.image?.alt || relatedPost.title}
+                      src={relatedPost.image || "/placeholder.svg"}
+                      alt={relatedPost.title}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
