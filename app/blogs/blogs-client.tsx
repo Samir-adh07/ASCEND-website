@@ -147,20 +147,6 @@ export default function BlogsClient() {
             ))}
           </div>
         )}
-        </div>
-
-        {filteredPosts.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-xl text-muted-foreground mb-4">
-              {selectedCategory ? `No posts found in "${selectedCategory}" category.` : 'No blog posts available yet.'}
-            </p>
-            {!selectedCategory && (
-              <p className="text-muted-foreground">
-                Blog posts will appear here once they're published via Sanity CMS.
-              </p>
-            )}
-          </div>
-        )}
       </section>
     </div>
   )
