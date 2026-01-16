@@ -1,5 +1,5 @@
 import { client } from './sanity'
-import { PortableTextBlock } from '@portabletext/types'
+import { PortableTextBlock } from '@portabletext/react'
 import { BLOG_POSTS_QUERY, BLOG_POST_BY_SLUG_QUERY } from './sanity'
 
 export interface SanityBlogPost {

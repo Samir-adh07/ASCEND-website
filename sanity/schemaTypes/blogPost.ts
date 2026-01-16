@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType, defineArrayMember } from 'sanity'
 
 export default defineType({
   name: 'blogPost',
@@ -25,7 +25,6 @@ export default defineType({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
-      rows: 3,
       validation: (Rule) => Rule.required().max(200),
     }),
     defineField({
@@ -33,7 +32,7 @@ export default defineType({
       title: 'Content',
       type: 'array',
       of: [
-        {
+        defineArrayMember({
           type: 'block',
           styles: [
             { title: 'Normal', value: 'normal' },
@@ -62,8 +61,8 @@ export default defineType({
               },
             ],
           },
-        },
-        {
+        }),
+        defineArrayMember({
           type: 'image',
           options: { hotspot: true },
           fields: [
@@ -73,9 +72,9 @@ export default defineType({
               title: 'Alternative Text',
             },
           ],
-        },
+        }),
       ],
-    }),
+    } as any),
     defineField({
       name: 'category',
       title: 'Category',
@@ -117,7 +116,7 @@ export default defineType({
           title: 'Alternative Text',
         },
       ],
-    }),
+    } as any),
     defineField({
       name: 'seo',
       title: 'SEO Settings',
@@ -127,16 +126,15 @@ export default defineType({
           name: 'metaDescription',
           type: 'text',
           title: 'Meta Description',
-          rows: 3,
         },
         {
           name: 'keywords',
           type: 'array',
           title: 'Keywords',
-          of: [{ type: 'string' }],
+          of: [defineArrayMember({ type: 'string' })],
         },
       ],
-    }),
+    } as any),
   ],
   preview: {
     select: {
