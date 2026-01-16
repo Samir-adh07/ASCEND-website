@@ -1,17 +1,36 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Calendar, Clock } from "lucide-react"
-import { getAllBlogPosts, getBlogPostsByCategory, categories } from "@/lib/blogs-data"
+import { getBlogPosts, type SanityBlogPost } from "@/lib/sanity-blog-data"
+
+const categories = ["Market Insights", "M&A Strategy", "Fundraising", "Valuation", "Nepal Business"] as const
 
 export default function BlogsClient() {
-  const allPosts = getAllBlogPosts()
+  const [allPosts, setAllPosts] = useState<SanityBlogPost[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  const filteredPosts = selectedCategory ? getBlogPostsByCategory(selectedCategory) : allPosts
+  useEffect(() => {
+    async function loadPosts() {
+      try {
+        const posts = await getBlogPosts()
+        setAllPosts(posts)
+      } catch (error) {
+        console.error('Error loading blog posts:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadPosts()
+  }, [])
+
+  const filteredPosts = selectedCategory 
+    ? allPosts.filter(post => post.category === selectedCategory)
+    : allPosts
 
   return (
     <div className="min-h-screen">
@@ -62,58 +81,72 @@ export default function BlogsClient() {
 
       {/* Blog Grid */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {filteredPosts.map((post) => (
-            <Link key={post.id} href={`/blogs/${post.slug}`}>
-              <article className="group h-full flex flex-col overflow-hidden rounded-2xl border bg-card shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer">
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden bg-muted">
-                  <Image
-                    src={post.image || "/placeholder.svg"}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-                  <div className="absolute bottom-4 left-4">
-                    <span className="inline-block rounded-full bg-accent/90 backdrop-blur-sm px-3 py-1 text-sm font-semibold text-accent-foreground">
-                      {post.category}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="mb-3 line-clamp-2 text-xl font-bold text-card-foreground group-hover:text-accent transition-colors duration-300">
-                    {post.title}
-                  </h3>
-                  <p className="mb-4 flex-1 line-clamp-3 text-muted-foreground leading-relaxed">{post.excerpt}</p>
-
-                  {/* Meta Information */}
-                  <div className="mb-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4" />
-                      {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4" />
-                      {post.readTime} min read
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center">
+              <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-accent border-r-transparent"></div>
+              <p className="mt-4 text-muted-foreground">Loading blog posts...</p>
+            </div>
+          </div>
+        ) : filteredPosts.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-xl text-muted-foreground">No blog posts found.</p>
+          </div>
+        ) : (
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            {filteredPosts.map((post) => (
+              <Link key={post._id} href={`/blogs/${post.slug.current}`}>
+                <article className="group h-full flex flex-col overflow-hidden rounded-2xl border bg-card shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer">
+                  {/* Image */}
+                  <div className="relative h-48 overflow-hidden bg-muted">
+                    <Image
+                      src={post.image?.asset?.url || "/placeholder.svg"}
+                      alt={post.image?.alt || post.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4">
+                      <span className="inline-block rounded-full bg-accent/90 backdrop-blur-sm px-3 py-1 text-sm font-semibold text-accent-foreground">
+                        {post.category}
+                      </span>
                     </div>
                   </div>
 
-                  {/* CTA */}
-                  <div className="inline-flex items-center text-accent font-semibold group-hover:gap-2 transition-all duration-300">
-                    Read Article
-                    <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  {/* Content */}
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="mb-3 line-clamp-2 text-xl font-bold text-card-foreground group-hover:text-accent transition-colors duration-300">
+                      {post.title}
+                    </h3>
+                    <p className="mb-4 flex-1 line-clamp-3 text-muted-foreground leading-relaxed">{post.excerpt}</p>
+
+                    {/* Meta Information */}
+                    <div className="mb-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4" />
+                        {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="h-4 w-4" />
+                        {post.readTime} min read
+                      </div>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="inline-flex items-center text-accent font-semibold group-hover:gap-2 transition-all duration-300">
+                      Read Article
+                      <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </div>
                   </div>
-                </div>
-              </article>
-            </Link>
-          ))}
+                </article>
+              </Link>
+            ))}
+          </div>
+        )}
         </div>
 
         {filteredPosts.length === 0 && (

@@ -208,7 +208,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${workSans.variable} ${dmSans.variable}`} suppressHydrationWarning>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
