@@ -1,21 +1,18 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Calendar, Clock, User, Tag, BookOpen, ThumbsUp } from "lucide-react"
+import { ArrowLeft, Calendar, Clock, Share2, User, Tag, BookOpen, ThumbsUp, MessageCircle } from "lucide-react"
 import { getBlogPostBySlug, getBlogPosts } from "@/lib/sanity-blog-data"
 import { notFound } from "next/navigation"
 import PortableTextContent from "@/components/portable-text-content"
-import ShareButton from "@/components/share-button"
 
 interface BlogPostPageProps {
   params: { slug: string }
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params
-  
   const [post, allPosts] = await Promise.all([
-    getBlogPostBySlug(slug),
+    getBlogPostBySlug(params.slug),
     getBlogPosts()
   ])
 
@@ -30,9 +27,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Floating Navigation */}
+      <div className="fixed top-6 left-6 z-50">
+        <Button asChild variant="outline" size="sm" className="bg-background/90 backdrop-blur-md shadow-lg hover:shadow-xl transition-all duration-300">
+          <Link href="/blogs" className="inline-flex items-center gap-2">
+            <ArrowLeft className="h-4 w-4" />
+            Back
+          </Link>
+        </Button>
+      </div>
 
       {/* Hero Section with Featured Image */}
-      <section className="relative h-[80vh] min-h-[600px] flex items-end overflow-hidden">
+      <section className="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image 
@@ -42,15 +48,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             className="object-cover" 
             priority 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20" />
         </div>
 
         {/* Hero Content */}
         <div className="relative z-10 w-full">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pb-20">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pb-16">
             {/* Category Badge */}
-            <div className="mb-8">
+            <div className="mb-6">
               <span className="inline-flex items-center gap-2 rounded-full bg-accent/90 backdrop-blur-sm px-4 py-2 text-sm font-semibold text-accent-foreground shadow-lg">
                 <Tag className="h-3 w-3" />
                 {post.category}
@@ -58,12 +64,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               {post.title}
             </h1>
 
             {/* Excerpt */}
-            <p className="text-xl text-white/90 mb-10 leading-relaxed max-w-3xl">
+            <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-3xl">
               {post.excerpt}
             </p>
 
@@ -93,19 +99,35 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </section>
 
       {/* Main Content */}
-      <section className="relative py-12">
+      <section className="relative">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           
           {/* Content Container */}
-          <div className="relative bg-background rounded-3xl shadow-2xl border border-border/20">
+          <div className="relative bg-background -mt-20 rounded-t-3xl shadow-2xl border border-border/20">
             <div className="p-8 sm:p-12">
               
               {/* Social Share Bar */}
-              <div className="flex items-center justify-between mb-16 pb-10 border-b border-border/30">
+              <div className="flex items-center justify-between mb-12 pb-6 border-b border-border/30">
                 <div className="flex items-center gap-4">
                   <span className="text-sm font-medium text-muted-foreground">Share this article:</span>
                   <div className="flex gap-2">
-                    <ShareButton title={post.title} excerpt={post.excerpt} />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        if (navigator.share) {
+                          navigator.share({
+                            title: post.title,
+                            text: post.excerpt,
+                            url: window.location.href,
+                          })
+                        }
+                      }}
+                      className="gap-2 hover:bg-primary hover:text-primary-foreground transition-colors"
+                    >
+                      <Share2 className="h-4 w-4" />
+                      Share
+                    </Button>
                   </div>
                 </div>
                 
@@ -117,7 +139,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
 
               {/* Article Content */}
-              <article className="prose prose-lg max-w-none mb-20">
+              <article className="prose prose-lg max-w-none">
                 <PortableTextContent content={post.content} />
               </article>
 
@@ -219,6 +241,24 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </section>
       )}
+
+      {/* Call to Action */}
+      <section className="py-20 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to Take Action?</h2>
+          <p className="text-xl text-primary-foreground/90 mb-8 leading-relaxed">
+            Get personalized advice from our M&A and business advisory experts
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+              <Link href="/contact">Schedule a Consultation</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
+              <Link href="/services">Explore Our Services</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

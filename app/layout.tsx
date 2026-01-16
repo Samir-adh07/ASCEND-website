@@ -129,92 +129,90 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Ascend LLC",
+    image: "https://ascendllc.com/og-image.jpg",
+    "@id": "https://ascendllc.com",
+    url: "https://ascendllc.com",
+    telephone: "+977-XXXXXXXXXX",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Kathmandu",
+      addressLocality: "Kathmandu",
+      addressCountry: "NP",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 27.7172,
+      longitude: 85.324,
+    },
+    description:
+      "Leading M&A Advisory and Business Brokerage firm in Nepal. Expert services in fundraising, mergers & acquisitions, business valuation, and due diligence.",
+    priceRange: "$$$$",
+    founder: {
+      "@type": "Person",
+      name: "Saurav Subedi",
+      jobTitle: "Founder & CEO",
+      description: "Chartered Accountant with Ivy League training and multi-million USD exit experience",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "Nepal",
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Services",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "M&A Advisory",
+            description: "Expert merger and acquisition advisory services",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Fundraising",
+            description: "Strategic capital raising for startups and enterprises",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Business Valuation",
+            description: "Professional business valuation services",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Due Diligence",
+            description: "Comprehensive financial and operational due diligence",
+          },
+        },
+      ],
+    },
+    sameAs: [
+      "https://www.linkedin.com/company/ascend-llc",
+      "https://twitter.com/AscendLLC",
+      "https://www.facebook.com/AscendLLC",
+    ],
+  }
+
   return (
-    <html lang="en" className={`${workSans.variable} ${dmSans.variable}`}>
-      <head>
+    <html lang="en" className={`${workSans.variable} ${dmSans.variable}`} suppressHydrationWarning>
+      <body className="font-sans antialiased">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ProfessionalService",
-              name: "Ascend LLC",
-              image: "https://ascendllc.com/og-image.jpg",
-              "@id": "https://ascendllc.com",
-              url: "https://ascendllc.com",
-              telephone: "+977-XXXXXXXXXX",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Kathmandu",
-                addressLocality: "Kathmandu",
-                addressCountry: "NP",
-              },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: 27.7172,
-                longitude: 85.324,
-              },
-              description:
-                "Leading M&A Advisory and Business Brokerage firm in Nepal. Expert services in fundraising, mergers & acquisitions, business valuation, and due diligence.",
-              priceRange: "$$$$",
-              founder: {
-                "@type": "Person",
-                name: "Saurav Subedi",
-                jobTitle: "Founder & CEO",
-                description: "Chartered Accountant with Ivy League training and multi-million USD exit experience",
-              },
-              areaServed: {
-                "@type": "Country",
-                name: "Nepal",
-              },
-              hasOfferCatalog: {
-                "@type": "OfferCatalog",
-                name: "Services",
-                itemListElement: [
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "M&A Advisory",
-                      description: "Expert merger and acquisition advisory services",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Fundraising",
-                      description: "Strategic capital raising for startups and enterprises",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Business Valuation",
-                      description: "Professional business valuation services",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Due Diligence",
-                      description: "Comprehensive financial and operational due diligence",
-                    },
-                  },
-                ],
-              },
-              sameAs: [
-                "https://www.linkedin.com/company/ascend-llc",
-                "https://twitter.com/AscendLLC",
-                "https://www.facebook.com/AscendLLC",
-              ],
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body className="font-sans antialiased">
         <ScrollToTop />
         <Header />
         <main>{children}</main>
