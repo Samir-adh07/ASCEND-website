@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import BlogsClient from "./blogs-client"
+import { getBlogPosts } from "@/lib/sanity-blog-data"
 
 export const metadata: Metadata = {
   title: "Blogs | Ascend LLC",
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
   keywords: "M&A blog, fundraising guides, business valuation, Nepal startups, entrepreneurship",
 }
 
-export default function BlogsPage() {
-  return <BlogsClient />
+export default async function BlogsPage() {
+  const posts = await getBlogPosts()
+  return <BlogsClient initialPosts={posts} />
 }

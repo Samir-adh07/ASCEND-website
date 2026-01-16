@@ -1,36 +1,24 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Calendar, Clock } from "lucide-react"
-import { getBlogPosts, type SanityBlogPost } from "@/lib/sanity-blog-data"
+import { type SanityBlogPost } from "@/lib/sanity-blog-data"
 
 const categories = ["Market Insights", "M&A Strategy", "Fundraising", "Valuation", "Nepal Business"] as const
 
-export default function BlogsClient() {
-  const [allPosts, setAllPosts] = useState<SanityBlogPost[]>([])
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true)
+interface BlogsClientProps {
+  initialPosts: SanityBlogPost[]
+}
 
-  useEffect(() => {
-    async function loadPosts() {
-      try {
-        const posts = await getBlogPosts()
-        setAllPosts(posts)
-      } catch (error) {
-        console.error('Error loading blog posts:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    loadPosts()
-  }, [])
+export default function BlogsClient({ initialPosts }: BlogsClientProps) {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
   const filteredPosts = selectedCategory 
-    ? allPosts.filter(post => post.category === selectedCategory)
-    : allPosts
+    ? initialPosts.filter(post => post.category === selectedCategory)
+    : initialPosts
 
   return (
     <div className="min-h-screen">
@@ -81,16 +69,10 @@ export default function BlogsClient() {
 
       {/* Blog Grid */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <div className="text-center">
-              <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-accent border-r-transparent"></div>
-              <p className="mt-4 text-muted-foreground">Loading blog posts...</p>
-            </div>
-          </div>
-        ) : filteredPosts.length === 0 ? (
+        {filteredPosts.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-xl text-muted-foreground">No blog posts found.</p>
+            <p className="text-muted-foreground mt-2">Try selecting a different category or check back later.</p>
           </div>
         ) : (
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">

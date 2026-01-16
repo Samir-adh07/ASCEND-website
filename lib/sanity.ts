@@ -7,6 +7,7 @@ export const client = createClient({
   apiVersion: '2024-01-01',
   useCdn: true, // Enable CDN for faster queries
   perspective: 'published', // Only fetch published content
+  token: process.env.SANITY_API_TOKEN, // Add authentication token
 })
 // line space
 const builder = createImageUrlBuilder(client)
