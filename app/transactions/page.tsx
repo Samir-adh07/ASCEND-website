@@ -32,51 +32,41 @@ export default function TransactionsPage() {
       acquirerLocation: "United States",
       dealValue: "$2.4M",
       image: "/technology-company-office-modern.jpg",
+      role: "Ascend acted as the exclusive sell-side advisor",
+      isAcquisition: true,
     },
     {
-      title: "High-Growth Tech Startup",
-      subtitle: "Series A Funding Round",
+      title: "Imperial Medilink",
+      subtitle: "Leading Medical Equipment Supplier",
       location: "Kathmandu, Nepal",
-      acquiredBy: "International Venture Capital",
-      acquirerLocation: "Global Investors",
-      dealValue: "Undisclosed",
-      image: "/startup-office-team-collaboration.jpg",
-    },
-    {
-      title: "Manufacturing Company",
-      subtitle: "Strategic Merger & Consolidation",
-      location: "Lalitpur, Nepal",
-      acquiredBy: "Industry Strategic Partner",
+      acquiredBy: "Private Investors",
       acquirerLocation: "Nepal",
-      dealValue: "Undisclosed",
-      image: "/manufacturing-facility-production-line.jpg",
+      dealValue: "USD 1M",
+      image: "/images/imperial-medilink.png",
+      role: "Ascend acted as Fundraising Consultant",
+      isAcquisition: false,
     },
     {
-      title: "E-Commerce Platform",
-      subtitle: "Growth Capital Raise",
+      title: "Sunfarmer",
+      subtitle: "Solar Engineering Company",
       location: "Kathmandu, Nepal",
-      acquiredBy: "Private Equity Firm",
-      acquirerLocation: "Singapore",
-      dealValue: "Undisclosed",
-      image: "/ecommerce-online-shopping-platform.jpg",
-    },
-    {
-      title: "Hospitality & Tourism Business",
-      subtitle: "Business Sale & Exit",
-      location: "Pokhara, Nepal",
-      acquiredBy: "Private Buyer",
+      acquiredBy: "Cosmic Solution",
       acquirerLocation: "Nepal",
-      dealValue: "Undisclosed",
-      image: "/luxury-hotel-resort-hospitality.jpg",
+      dealValue: "",
+      image: "/images/sunfarmer.png",
+      role: "Ascend Acted as buy-side Advisor",
+      isAcquisition: true,
     },
     {
-      title: "Financial Services Firm",
-      subtitle: "Strategic Partnership",
+      title: "Blush Beauty",
+      subtitle: "Exclusive reseller of Plum India",
       location: "Kathmandu, Nepal",
-      acquiredBy: "Regional Financial Group",
-      acquirerLocation: "South Asia",
-      dealValue: "Undisclosed",
-      image: "/financial-services-banking-professional.jpg",
+      acquiredBy: "Private Investors",
+      acquirerLocation: "Nepal",
+      dealValue: "USD 500k",
+      image: "/images/blush-beauty.png",
+      role: "Ascend Acted as Fundraising Consultant",
+      isAcquisition: false,
     },
   ]
 
@@ -123,10 +113,15 @@ export default function TransactionsPage() {
 
                   <div className="mb-4 border-t border-border pt-4">
                     <p className="mb-3 text-center text-xs uppercase tracking-wider text-muted-foreground/70">
-                      was acquired by
+                      {transaction.role?.includes("Fundraising") ? "Raised Funds worth" : "was acquired by"}
                     </p>
                     <div className="space-y-1">
-                      <p className="text-center text-base font-semibold text-primary">{transaction.acquiredBy}</p>
+                      <p className="text-center text-base font-semibold text-primary">
+                        {transaction.role?.includes("Fundraising") ? transaction.dealValue : transaction.acquiredBy}
+                      </p>
+                      <p className="text-center text-sm text-muted-foreground">
+                        {transaction.role?.includes("Fundraising") ? `from ${transaction.acquiredBy}` : transaction.acquirerLocation}
+                      </p>
                       <p className="text-center text-sm text-muted-foreground">{transaction.acquirerLocation}</p>
                     </div>
                   </div>
@@ -135,7 +130,7 @@ export default function TransactionsPage() {
                 {/* Premium footer with accent color */}
                 <div className="bg-primary px-6 py-4 text-center">
                   <p className="text-sm font-medium text-primary-foreground">
-                    Ascend acted as the exclusive sell-side advisor
+                    {transaction.role || "Ascend acted as the exclusive sell-side advisor"}
                   </p>
                 </div>
               </div>
