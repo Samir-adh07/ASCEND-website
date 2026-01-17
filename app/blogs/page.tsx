@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   keywords: "M&A blog, fundraising guides, business valuation, Nepal startups, entrepreneurship",
 }
 
+// Revalidate every 60 seconds to fetch new blog posts
+export const revalidate = 60
+
 export default async function BlogsPage() {
   const posts = await getBlogPosts()
   return <BlogsClient initialPosts={posts} />

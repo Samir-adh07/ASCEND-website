@@ -11,6 +11,9 @@ interface BlogPostPageProps {
   params: { slug: string }
 }
 
+// Revalidate every 60 seconds to fetch updated blog posts
+export const revalidate = 60
+
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params
   

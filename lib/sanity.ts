@@ -5,7 +5,7 @@ export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'mjs0jfmc',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2024-01-01',
-  useCdn: true, // Enable CDN for faster queries
+  useCdn: false, // Disable CDN to get fresh data
   perspective: 'published', // Only fetch published content
   token: process.env.SANITY_API_TOKEN, // Add authentication token
 })
