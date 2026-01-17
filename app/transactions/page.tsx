@@ -58,7 +58,7 @@ export default function TransactionsPage() {
       image: "/images/sunfarmer.png",
       role: "Ascend Acted as buy-side Advisor",
       isAcquisition: true,
-      isLogo: false,
+      isLogo: true,
     },
     {
       title: "Blush Beauty",
