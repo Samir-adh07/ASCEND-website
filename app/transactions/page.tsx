@@ -102,7 +102,7 @@ export default function TransactionsPage() {
                     src={transaction.image || "/placeholder.svg"}
                     alt={transaction.title}
                     fill
-                    className={transaction.isLogo ? 'object-contain p-12 transition-transform duration-300 group-hover:scale-110' : 'object-cover transition-transform duration-500 group-hover:scale-105'}
+                    className={transaction.isLogo ? 'object-scale-down p-6 transition-transform duration-300 group-hover:scale-110' : 'object-cover transition-transform duration-500 group-hover:scale-105'}
                   />
                   {!transaction.isLogo && <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />}
                 </div>
