@@ -34,6 +34,7 @@ export default function TransactionsPage() {
       image: "/technology-company-office-modern.jpg",
       role: "Ascend acted as the exclusive sell-side advisor",
       isAcquisition: true,
+      isLogo: false,
     },
     {
       title: "Imperial Medilink",
@@ -45,6 +46,7 @@ export default function TransactionsPage() {
       image: "/images/imperial-medilink.png",
       role: "Ascend acted as Fundraising Consultant",
       isAcquisition: false,
+      isLogo: true,
     },
     {
       title: "Sunfarmer",
@@ -56,6 +58,7 @@ export default function TransactionsPage() {
       image: "/images/sunfarmer.png",
       role: "Ascend Acted as buy-side Advisor",
       isAcquisition: true,
+      isLogo: true,
     },
     {
       title: "Blush Beauty",
@@ -67,6 +70,7 @@ export default function TransactionsPage() {
       image: "/images/blush-beauty.png",
       role: "Ascend Acted as Fundraising Consultant",
       isAcquisition: false,
+      isLogo: true,
     },
   ]
 
@@ -93,13 +97,14 @@ export default function TransactionsPage() {
                 className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-lg transition-all hover:shadow-2xl hover:-translate-y-1"
               >
                 {/* Image with overlay effect */}
-                <div className="relative h-56 w-full overflow-hidden bg-white">
+                <div className={`relative h-56 w-full overflow-hidden ${transaction.isLogo ? 'bg-white' : 'bg-muted'}`}>
                   <Image
                     src={transaction.image || "/placeholder.svg"}
                     alt={transaction.title}
                     fill
-                    className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+                    className={transaction.isLogo ? 'object-contain p-8 transition-transform duration-300 group-hover:scale-110' : 'object-cover transition-transform duration-500 group-hover:scale-105'}
                   />
+                  {!transaction.isLogo && <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />}
                 </div>
 
                 {/* Content with refined typography */}
