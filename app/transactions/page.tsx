@@ -46,7 +46,7 @@ export default function TransactionsPage() {
       image: "/images/imperial-medilink.png",
       role: "Ascend acted as Fundraising Consultant",
       isAcquisition: false,
-      isLogo: true,
+      isLogo: false,
     },
     {
       title: "Sunfarmer",
@@ -58,7 +58,7 @@ export default function TransactionsPage() {
       image: "/images/sunfarmer.png",
       role: "Ascend Acted as buy-side Advisor",
       isAcquisition: true,
-      isLogo: true,
+      isLogo: false,
     },
     {
       title: "Blush Beauty",
@@ -70,7 +70,7 @@ export default function TransactionsPage() {
       image: "/images/blush-beauty.png",
       role: "Ascend Acted as Fundraising Consultant",
       isAcquisition: false,
-      isLogo: true,
+      isLogo: false,
     },
   ]
 
