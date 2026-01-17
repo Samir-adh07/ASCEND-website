@@ -120,9 +120,8 @@ export default function TransactionsPage() {
                         {transaction.role?.includes("Fundraising") ? transaction.dealValue : transaction.acquiredBy}
                       </p>
                       <p className="text-center text-sm text-muted-foreground">
-                        {transaction.role?.includes("Fundraising") ? `from ${transaction.acquiredBy}` : transaction.acquirerLocation}
+                        {transaction.role?.includes("Fundraising") ? `from ${transaction.acquiredBy}, ${transaction.acquirerLocation}` : transaction.acquirerLocation}
                       </p>
-                      <p className="text-center text-sm text-muted-foreground">{transaction.acquirerLocation}</p>
                     </div>
                   </div>
                 </div>
