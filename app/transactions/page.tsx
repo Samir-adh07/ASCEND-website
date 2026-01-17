@@ -97,12 +97,12 @@ export default function TransactionsPage() {
                 className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-lg transition-all hover:shadow-2xl hover:-translate-y-1"
               >
                 {/* Image with overlay effect */}
-                <div className={`relative h-56 w-full overflow-hidden ${transaction.isLogo ? 'bg-white' : 'bg-muted'}`}>
+                <div className={`relative h-56 w-full overflow-hidden flex items-center justify-center ${transaction.isLogo ? 'bg-white' : 'bg-muted'}`}>
                   <Image
                     src={transaction.image || "/placeholder.svg"}
                     alt={transaction.title}
                     fill
-                    className={transaction.isLogo ? 'object-contain p-8 transition-transform duration-300 group-hover:scale-110' : 'object-cover transition-transform duration-500 group-hover:scale-105'}
+                    className={transaction.isLogo ? 'object-contain p-12 transition-transform duration-300 group-hover:scale-110' : 'object-cover transition-transform duration-500 group-hover:scale-105'}
                   />
                   {!transaction.isLogo && <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />}
                 </div>
